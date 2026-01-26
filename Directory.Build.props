@@ -1,13 +1,15 @@
-﻿<Project>
+<Project>
     <PropertyGroup>
         <!--todo: add mono-->
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>disable</Nullable>
     </PropertyGroup>
     <PropertyGroup>
-        <VersionPrefix>11.3.7</VersionPrefix>
-        <Authors>https://github.com/jinek/Consolonia/graphs/contributors</Authors>
+        <VersionPrefix>11.3.9</VersionPrefix>
+        <Authors>https://github.com/consolonia/consolonia/graphs/contributors</Authors>
         <Copyright>© 2021–2025 Evgeny Gorbovoy &amp; Tom Laird-McConnell</Copyright>
+        <ProjectUrl>https://github.com/consolonia/consolonia</ProjectUrl>
+        <RepositoryUrl>https://github.com/consolonia/consolonia</RepositoryUrl>
         <PackageIcon>Icon.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -15,7 +17,7 @@
         <IsPackable>False</IsPackable>
     </PropertyGroup>
     <PropertyGroup>
-        <AvaloniaVersion>11.3.7</AvaloniaVersion>
+        <AvaloniaVersion>11.3.9</AvaloniaVersion>
     </PropertyGroup>
     <ItemGroup Condition="'$(IsPackable)' != 'false'">
         <None Include="$(SolutionDir)/../Icon.png"
