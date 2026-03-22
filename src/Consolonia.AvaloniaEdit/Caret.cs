@@ -27,10 +27,11 @@ namespace Consolonia.AvaloniaEdit
         {
             UseConsoleProperty.Changed.AddClassHandler<TextEditor>((textEditor, e) =>
             {
+                textEditor.Options.LineHeightFactor = 1.0; // we always want to set the default line height factor.
+
                 bool value = (bool)e.NewValue;
                 if (value)
                 {
-                    textEditor.Options.LineHeightFactor = 1.0; 
                     textEditor.TextArea.TextView.LineTransformers.Add(new DecorationsFontMetricsTransformer());
                     textEditor.TextArea.Caret.CaretBrush = new MoveConsoleCaretToPositionBrush
                         { CaretStyle = CaretStyle.SteadyBar };
