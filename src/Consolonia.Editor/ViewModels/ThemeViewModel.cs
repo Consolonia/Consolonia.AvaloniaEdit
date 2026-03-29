@@ -1,16 +1,11 @@
 using TextMateSharp.Grammars;
 
-namespace ConsoloniaEdit.Demo.ViewModels;
-
-public class ThemeViewModel
+namespace Consolonia.Editor.ViewModels
 {
-    private ThemeName _themeName;
-
-    public ThemeName ThemeName => _themeName;
-
-    public string DisplayName => _themeName.ToString();
-    public ThemeViewModel(ThemeName themeName)
+    public class ThemeViewModel(ThemeName themeName)
     {
-        _themeName = themeName;
+        public ThemeName ThemeName { get; } = themeName;
+
+        public string DisplayName => ThemeName.ToString();
     }
 }

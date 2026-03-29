@@ -1,15 +1,15 @@
-class CSharp
+internal class CSharp
 {
     public static List<int> BubbleSort(List<int> xs)
     {
-        var acc = xs.ToList();
-        var last = acc.ToList();
+        List<int> acc = xs.ToList();
+        List<int> last;
         do
         {
             last = acc.ToList();
             acc = PassList(last.ToList());
-        }
-        while(!acc.SequenceEqual(last));
+        } while (!acc.SequenceEqual(last));
+
         return acc;
     }
 
@@ -17,26 +17,25 @@ class CSharp
     {
         if (xs.Count() <= 1)
             return xs;
-        var x0 = xs[0];
-        var x1 = xs[1];
+        int x0 = xs[0];
+        int x1 = xs[1];
         if (x1 < x0)
         {
             xs.RemoveAt(1);
-            return new List<int>() {x1}.Concat(PassList(xs)).ToList();
+            return new List<int> { x1 }.Concat(PassList(xs)).ToList();
         }
-        else
-        {
-            xs.RemoveAt(0);
-            return new List<int>() {x0}.Concat(PassList(xs)).ToList();
-        }
+
+        xs.RemoveAt(0);
+        return new List<int> { x0 }.Concat(PassList(xs)).ToList();
     }
-    
+
     public static void ErrorAndExit()
     {
-        Console.WriteLine("Usage: please provide a list of at least two integers to sort in the format \"1, 2, 3, 4, 5\"");
-        Environment.Exit(1);   
+        Console.WriteLine(
+            "Usage: please provide a list of at least two integers to sort in the format \"1, 2, 3, 4, 5\"");
+        Environment.Exit(1);
     }
-    
+
     //public static void Main(string[] args)
     //{
     //    if (args.Length != 1)

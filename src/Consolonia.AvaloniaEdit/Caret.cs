@@ -27,6 +27,8 @@ namespace Consolonia.AvaloniaEdit
         {
             UseConsoleProperty.Changed.AddClassHandler<TextEditor>((textEditor, e) =>
             {
+                textEditor.Options.LineHeightFactor = 1.0; // we always want to set the default line height factor.
+
                 bool value = (bool)e.NewValue;
                 if (value)
                 {

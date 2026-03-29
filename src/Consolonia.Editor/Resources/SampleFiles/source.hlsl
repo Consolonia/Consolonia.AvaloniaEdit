@@ -62,7 +62,7 @@ float3 CalcPerPixelNormal(float2 vTexcoord, float3 vVertNormal, float3 vVertTang
     float3x3 mTangentSpaceToWorldSpace = float3x3(vVertTangent, vVertBinormal, vVertNormal);
 
     // Compute per-pixel normal.
-    float3 vBumpNormal = (float3)normalMap.Sample(sampleWrap, vTexcoord);
+    float3 vBumpNormal = normalMap.Sample(sampleWrap, vTexcoord);
     vBumpNormal = 2.0f * vBumpNormal - 1.0f;
 
     return mul(vBumpNormal, mTangentSpaceToWorldSpace);
@@ -71,7 +71,8 @@ float3 CalcPerPixelNormal(float2 vTexcoord, float3 vVertNormal, float3 vVertTang
 //--------------------------------------------------------------------------------------
 // Diffuse lighting calculation, with angle and distance falloff.
 //--------------------------------------------------------------------------------------
-float4 CalcLightingColor(float3 vLightPos, float3 vLightDir, float4 vLightColor, float4 vFalloffs, float3 vPosWorld, float3 vPerPixelNormal)
+float4 CalcLightingColor(float3 vLightPos, float3 vLightDir, float4 vLightColor, float4 vFalloffs, float3 vPosWorld,
+                         float3 vPerPixelNormal)
 {
     float3 vLightToPixelUnNormalized = vPosWorld - vLightPos;
 
@@ -162,7 +163,8 @@ float4 PSMain(PSInput input) : SV_TARGET
 
     for (int i = 0; i < NUM_LIGHTS; i++)
     {
-        float4 lightPass = CalcLightingColor(lights[i].position, lights[i].direction, lights[i].color, lights[i].falloff, input.worldpos.xyz, pixelNormal);
+        float4 lightPass = CalcLightingColor(lights[i].position, lights[i].direction, lights[i].color,
+                                             lights[i].falloff, input.worldpos.xyz, pixelNormal);
         if (sampleShadowMap && i == 0)
         {
             lightPass *= CalcUnshadowedAmountPCF2x2(i, input.worldpos);

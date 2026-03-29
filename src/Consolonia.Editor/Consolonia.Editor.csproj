@@ -12,13 +12,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0" />
-        <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0" />
-        <PackageReference Include="Consolonia" Version="11.3.7-beta.2027" />
-        <PackageReference Include="ReactiveUI" Version="20.1.1" />
-        <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.0.4" />
-        <PackageReference Include="TextMateSharp" Version="1.0.70" />
-        <PackageReference Include="TextMateSharp.Grammars" Version="1.0.70" />
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.4.1" />
+        <PackageReference Include="AvaloniaEdit.TextMate" Version="11.4.1" />
+        <PackageReference Include="Consolonia" Version="$(VersionPrefix)" />
+        <PackageReference Include="ReactiveUI" Version="23.1.8" />
+        <!--<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.1.1" />-->
+        <PackageReference Include="TextMateSharp" Version="2.0.3" />
+        <PackageReference Include="TextMateSharp.Grammars" Version="2.0.3" />
     </ItemGroup>
 
     <ItemGroup>

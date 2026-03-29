@@ -1,9 +1,8 @@
 // DUPFINDER_ignore
 
 using Avalonia;
-using Consolonia;
 
-namespace ConsoloniaEdit
+namespace Consolonia.Editor
 {
     public static class Program
     {
@@ -18,7 +17,7 @@ namespace ConsoloniaEdit
             return AppBuilder.Configure<App>()
                 .UseConsolonia()
                 .UseAutoDetectedConsole()
-                .WithDeveloperTools()
+                //.WithDeveloperTools()
                 .LogToException();
         }
     }

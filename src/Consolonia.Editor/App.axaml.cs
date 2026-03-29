@@ -1,24 +1,22 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using ConsoloniaEdit.Demo;
 
-namespace ConsoloniaEdit;
-
-public partial class App : Application
+namespace Consolonia.Editor
 {
-    public override void Initialize()
+    public class App : Application
     {
-        AvaloniaXamlLoader.Load(this);
-    }
-
-    public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+        public override void Initialize()
         {
-            lifetime.MainWindow = new MainWindow();
+            AvaloniaXamlLoader.Load(this);
         }
 
-        base.OnFrameworkInitializationCompleted();
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+                lifetime.MainWindow = new MainWindow();
+
+            base.OnFrameworkInitializationCompleted();
+        }
     }
 }
