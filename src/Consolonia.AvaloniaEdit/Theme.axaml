@@ -65,6 +65,10 @@
                 <Pen Brush="{x:Null}"
                      Thickness="0" />
             </Setter>
+
+            <Setter Property="SelectionBrush"
+                    Value="{DynamicResource ThemeSelectionBackgroundBrush}" />
+
             <Setter Property="SelectionCornerRadius"
                     Value="0" />
 
