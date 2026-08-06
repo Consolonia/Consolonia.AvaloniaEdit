@@ -12,8 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.4.1" />
-        <PackageReference Include="AvaloniaEdit.TextMate" Version="11.4.1" />
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
+        <PackageReference Include="AvaloniaEdit.TextMate" Version="12.0.0" />
         <PackageReference Include="Consolonia" Version="$(ConsoloniaVersionLatest)" />
         <PackageReference Include="ReactiveUI" Version="23.2.28" />
         <!--<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.1.1" />-->
