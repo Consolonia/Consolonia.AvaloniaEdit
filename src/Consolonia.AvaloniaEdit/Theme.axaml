@@ -128,7 +128,7 @@
                                     <TextBox Grid.Column="0"
                                              Name="PART_searchTextBox"
                                              MaxHeight="1"
-                                             Watermark="{x:Static ae:SR.SearchLabel}"
+                                             PlaceholderText="{x:Static ae:SR.SearchLabel}"
                                              Text="{Binding SearchPattern, RelativeSource={RelativeSource TemplatedParent}}" />
                                     <Grid Grid.Column="2"
                                           ColumnSpacing="0"
@@ -200,7 +200,7 @@
                                       IsVisible="{Binding IsReplaceMode, RelativeSource={RelativeSource TemplatedParent}}"
                                       ColumnDefinitions="* Auto Auto"
                                       ColumnSpacing="1">
-                                    <TextBox Watermark="{x:Static ae:SR.ReplaceLabel}"
+                                    <TextBox PlaceholderText="{x:Static ae:SR.ReplaceLabel}"
                                              Name="PART_replaceTextBox"
                                              Grid.Column="0"
                                              MaxHeight="1"
