@@ -1,7 +1,10 @@
+using System;
 using System.Linq;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using AvaloniaEdit;
 using AvaloniaEdit.Editing;
@@ -34,7 +37,7 @@ namespace Consolonia.AvaloniaEdit
                 {
                     textEditor.TextArea.TextView.LineTransformers.Add(new DecorationsFontMetricsTransformer());
                     textEditor.TextArea.Caret.CaretBrush = new MoveConsoleCaretToPositionBrush
-                        { CaretStyle = CaretStyle.SteadyBar };
+                        { CaretStyle = CaretStyle.BlinkingBar };
 
                     {
                         // This is needed because we can not render more than one caret at once, which happens during search
@@ -48,6 +51,20 @@ namespace Consolonia.AvaloniaEdit
                                 { Mode = RelativeSourceMode.FindAncestor, AncestorType = typeof(TextArea) },
                             Path = nameof(Control.IsFocused)
                         });
+
+                        // We don't need the internal blinking animation because the hardware caret already blinks.
+                        // Unhook the Tick handler from the internal blink timer so _blink stays true forever,
+                        // leaving the actual blinking to the terminal's own hardware caret.
+                        Type caretLayerType = caretLayer.GetType();
+                        FieldInfo timerField = caretLayerType.GetField("_caretBlinkTimer",
+                            BindingFlags.NonPublic | BindingFlags.Instance)!;
+                        MethodInfo tickMethod = caretLayerType.GetMethod("CaretBlinkTimer_Tick",
+                            BindingFlags.NonPublic | BindingFlags.Instance)!;
+                        var caretBlinkTimer = (DispatcherTimer)timerField.GetValue(caretLayer);
+                        var tickHandler =
+                            (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), caretLayer, tickMethod);
+                        caretBlinkTimer.Tick -= tickHandler;
+                        caretBlinkTimer.Stop();
                     }
 
                     textEditor.TextArea.PropertyChanged += TextArea_PropertyChanged;
@@ -86,10 +103,9 @@ namespace Consolonia.AvaloniaEdit
             {
                 var textArea = (TextArea)sender;
                 if (textArea.Caret.CaretBrush is MoveConsoleCaretToPositionBrush caretBrush)
-                    // NOTE: We use SteadyBlock and SteadyBar because AvaloniaEdit has blinking animation hardcoded in.
                     caretBrush.CaretStyle = (bool)e.NewValue
-                        ? CaretStyle.SteadyBlock
-                        : CaretStyle.SteadyBar;
+                        ? CaretStyle.BlinkingBlock
+                        : CaretStyle.BlinkingBar;
             }
         }
     }
