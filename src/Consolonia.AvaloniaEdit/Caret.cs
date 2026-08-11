@@ -56,10 +56,10 @@ namespace Consolonia.AvaloniaEdit
                         // Unhook the Tick handler from the internal blink timer so _blink stays true forever,
                         // leaving the actual blinking to the terminal's own hardware caret.
                         Type caretLayerType = caretLayer.GetType();
-                        var timerField = caretLayerType.GetField("_caretBlinkTimer",
-                            BindingFlags.NonPublic | BindingFlags.Instance);
-                        var tickMethod = caretLayerType.GetMethod("CaretBlinkTimer_Tick",
-                            BindingFlags.NonPublic | BindingFlags.Instance);
+                        FieldInfo timerField = caretLayerType.GetField("_caretBlinkTimer",
+                            BindingFlags.NonPublic | BindingFlags.Instance)!;
+                        MethodInfo tickMethod = caretLayerType.GetMethod("CaretBlinkTimer_Tick",
+                            BindingFlags.NonPublic | BindingFlags.Instance)!;
                         var caretBlinkTimer = (DispatcherTimer)timerField.GetValue(caretLayer);
                         var tickHandler =
                             (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), caretLayer, tickMethod);
