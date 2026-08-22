@@ -56,14 +56,6 @@
                     Value="True" />
             <Setter Property="LineNumbersForeground"
                     Value="{DynamicResource ThemeNoDisturbBrush}" />
-
-            <!--Search results are underlined instead of being painted over, so that the syntax colors survive and
-                the current result stays distinguishable by its selection. Set SearchResultsBrush to a color to get
-                the stock background marker back on top of the underline.-->
-            <Setter Property="console:SearchHighlight.UseConsole"
-                    Value="True" />
-            <Setter Property="SearchResultsBrush"
-                    Value="Transparent" />
         </ControlTheme>
 
         <ControlTheme x:Key="{x:Type editing:TextArea}"

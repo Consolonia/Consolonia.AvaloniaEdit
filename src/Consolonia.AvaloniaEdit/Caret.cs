@@ -36,12 +36,6 @@ namespace Consolonia.AvaloniaEdit
                 if (value)
                 {
                     textEditor.TextArea.TextView.LineTransformers.Add(new DecorationsFontMetricsTransformer());
-
-                    // AvaloniaEdit is free to scroll to half a line, which a console can not show. Snapping the
-                    // offset to whole cells keeps the glyphs of a line and the rectangles drawn behind it (the
-                    // selection, the current line highlight, search markers) on the same row.
-                    ConsoleScrollOffset.Attach(textEditor.TextArea.TextView);
-
                     textEditor.TextArea.Caret.CaretBrush = new MoveConsoleCaretToPositionBrush
                         { CaretStyle = CaretStyle.BlinkingBar };
 
@@ -87,7 +81,6 @@ namespace Consolonia.AvaloniaEdit
                 else
                 {
                     /*todo: brush setup and restoration: textEditor.TextArea.Caret.CaretBrush = oldBrush;*/
-                    ConsoleScrollOffset.Detach(textEditor.TextArea.TextView);
                     textEditor.TextArea.PropertyChanged -= TextArea_PropertyChanged;
                 }
             });
