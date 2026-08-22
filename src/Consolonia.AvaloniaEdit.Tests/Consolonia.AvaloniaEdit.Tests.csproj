@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- we need this because it needs avalonia access-->
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Core.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+    <PropertyGroup>
+        <!-- but we don't want it packed-->
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+        <PackageReference Include="NUnit" Version="3.13.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+        <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
+        <PackageReference Include="Consolonia" Version="$(ConsoloniaVersionLatest)" />
+        <PackageReference Include="Consolonia.NUnit" Version="$(ConsoloniaVersionLatest)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Consolonia.AvaloniaEdit\Consolonia.AvaloniaEdit.csproj" />
+    </ItemGroup>
+
+</Project>
