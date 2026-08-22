@@ -16,6 +16,8 @@ namespace Consolonia.AvaloniaEdit.Tests
     ///     The lines are kept short on purpose. The search panel is anchored to the top right of the text area, so
     ///     with a wide enough console it can not cover any of the text and the tests can assert on every cell a
     ///     document line occupies.
+    ///     No two lines hold "List" at the same columns either, so a marker drawn one row off can not accidentally
+    ///     land on the same word again and let a test pass.
     /// </remarks>
     public class TestApp : Application
     {
@@ -23,15 +25,15 @@ namespace Consolonia.AvaloniaEdit.Tests
                                          class Sample
                                          {
                                              List<int> first;
-                                             List<int> second;
                                              int count;
 
-                                             void Add(int x)
+                                             void Add(List<int> xs)
                                              {
-                                                 first.Add(x);
-                                                 second.Add(x);
+                                                 first.AddRange(xs);
                                                  count++;
                                              }
+
+                                             List<string> names;
                                          }
                                          """;
 
