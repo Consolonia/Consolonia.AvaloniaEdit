@@ -6,7 +6,6 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using AvaloniaEdit.Document;
 using Consolonia.AvaloniaEdit.Tests.Base;
-using Consolonia.NUnit;
 using NUnit.Framework;
 
 namespace Consolonia.AvaloniaEdit.Tests
@@ -54,7 +53,7 @@ namespace Consolonia.AvaloniaEdit.Tests
         {
             await SearchAsync(Pattern);
 
-            var active = await Dispatcher.UIThread.InvokeAsync(() =>
+            (int Length, Color Color) active = await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 ISegment segment = Editor.TextArea.Selection.SurroundingSegment;
                 var selectionBrush = (ISolidColorBrush)Editor.TextArea.SelectionBrush;

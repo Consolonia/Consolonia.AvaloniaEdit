@@ -7,6 +7,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -28,13 +29,19 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
     /// </remarks>
     public abstract class TextEditorTestsBase : ConsoloniaAppTestBase<TestApp>
     {
+        protected const ushort BufferWidth = 120;
+        protected const ushort BufferHeight = 22;
+
+        /// <summary>
+        ///     The widest the sample document gets. The search panel is anchored to the right and paints selected
+        ///     text of its own, so scans of the document area stop before it.
+        /// </summary>
+        protected const int DocumentColumns = 40;
+
         protected TextEditorTestsBase() : base(new PixelBufferSize(BufferWidth, BufferHeight))
         {
             Args = [];
         }
-
-        protected const ushort BufferWidth = 120;
-        protected const ushort BufferHeight = 22;
 
         protected static TextEditor Editor { get; private set; }
 
@@ -83,7 +90,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         /// </summary>
         protected static async Task SearchAsync(string pattern)
         {
-            await UITest.KeyInput(Avalonia.Input.Key.F, Avalonia.Input.RawInputModifiers.Control)
+            await UITest.KeyInput(Key.F, RawInputModifiers.Control)
                 .ConfigureAwait(true);
             await WaitRenderedAsync().ConfigureAwait(true);
             await UITest.StringInput(pattern).ConfigureAwait(true);
@@ -111,12 +118,12 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
                 for (int offset = text.IndexOf(pattern, StringComparison.Ordinal);
                      offset >= 0;
                      offset = text.IndexOf(pattern, offset + 1, StringComparison.Ordinal))
-                    for (int i = 0; i < pattern.Length; i++)
-                    {
-                        PixelPoint? cell = CellOf(offset + i);
-                        if (cell != null)
-                            cells.Add(cell.Value);
-                    }
+                for (int i = 0; i < pattern.Length; i++)
+                {
+                    PixelPoint? cell = CellOf(offset + i);
+                    if (cell != null)
+                        cells.Add(cell.Value);
+                }
 
                 return cells;
             }).GetTask();
@@ -133,7 +140,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
             if (visualLine == null)
                 return null;
 
-            var window = ((IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!)
+            Window window = ((IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!)
                 .MainWindow!;
             Point origin = textView.TranslatePoint(new Point(0, 0), window) ?? new Point(0, 0);
 
@@ -156,12 +163,6 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
                 text.Append(CellAt(cell.WithX(cell.X + i)).Foreground.Symbol.GetText());
             return text.ToString();
         }
-
-        /// <summary>
-        ///     The widest the sample document gets. The search panel is anchored to the right and paints selected
-        ///     text of its own, so scans of the document area stop before it.
-        /// </summary>
-        protected const int DocumentColumns = 40;
 
         /// <summary>
         ///     The glyphs of every cell in the document area painted with the given background, read in reading
