@@ -77,7 +77,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         ///     Waits for the rendering to settle. Revealing a search result schedules work on the dispatcher, so a
         ///     single render pass is not enough to observe the final state.
         /// </summary>
-        protected static async Task WaitRenderedAsync()
+        protected async Task WaitRenderedAsync()
         {
             await UITest.WaitRendered().ConfigureAwait(true);
             await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.ApplicationIdle).GetTask()
@@ -88,7 +88,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         /// <summary>
         ///     Opens the search panel and types the pattern into it, one character at a time as a user would.
         /// </summary>
-        protected static async Task SearchAsync(string pattern)
+        protected async Task SearchAsync(string pattern)
         {
             await UITest.KeyInput(Key.F, RawInputModifiers.Control)
                 .ConfigureAwait(true);
@@ -151,12 +151,12 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
             return cell.X < 0 || cell.Y < 0 || cell.X >= BufferWidth || cell.Y >= BufferHeight ? null : cell;
         }
 
-        protected static Pixel CellAt(PixelPoint cell)
+        protected Pixel CellAt(PixelPoint cell)
         {
             return UITest.PixelBuffer[(ushort)cell.X, (ushort)cell.Y];
         }
 
-        protected static string TextAt(PixelPoint cell, int length)
+        protected string TextAt(PixelPoint cell, int length)
         {
             var text = new StringBuilder();
             for (int i = 0; i < length; i++)
@@ -169,7 +169,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         ///     order. This deliberately goes through the rendered buffer rather than through the text view's own
         ///     coordinates, so that it can catch a rectangle drawn a row away from the glyphs it belongs to.
         /// </summary>
-        protected static string GlyphsOnBackground(Color background)
+        protected string GlyphsOnBackground(Color background)
         {
             PixelBuffer buffer = UITest.PixelBuffer;
             var glyphs = new StringBuilder();
@@ -184,7 +184,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         /// <summary>
         ///     Every cell currently carrying the given text decoration.
         /// </summary>
-        protected static HashSet<PixelPoint> CellsDecoratedWith(TextDecorationLocation decoration)
+        protected HashSet<PixelPoint> CellsDecoratedWith(TextDecorationLocation decoration)
         {
             var cells = new HashSet<PixelPoint>();
             PixelBuffer buffer = UITest.PixelBuffer;
@@ -199,7 +199,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         /// <summary>
         ///     A picture of the buffer, so that a failure shows what was on screen instead of only a cell count.
         /// </summary>
-        protected static string DescribeBuffer()
+        protected string DescribeBuffer()
         {
             PixelBuffer buffer = UITest.PixelBuffer;
             var description = new StringBuilder();
