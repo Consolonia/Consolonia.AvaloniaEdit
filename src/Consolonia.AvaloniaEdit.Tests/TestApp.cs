@@ -1,8 +1,6 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml.Styling;
 using AvaloniaEdit;
 using AvaloniaEdit.Document;
 using Consolonia.Themes;
@@ -40,10 +38,7 @@ namespace Consolonia.AvaloniaEdit.Tests
         public override void Initialize()
         {
             Styles.Add(new ModernTheme());
-            Styles.Add(new StyleInclude(new Uri("avares://Consolonia.AvaloniaEdit.Tests/"))
-            {
-                Source = new Uri("avares://Consolonia.AvaloniaEdit/Theme.axaml")
-            });
+            Styles.Add(new AvaloniaEditTheme());
         }
 
         public override void OnFrameworkInitializationCompleted()
