@@ -45,7 +45,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
 
         protected static TextEditor Editor { get; private set; }
 
-        [OneTimeSetUp]
+        [SetUp]
         public async Task FindEditor()
         {
             await UITest.WaitRendered().ConfigureAwait(true);

@@ -10,12 +10,12 @@ applications.
 To enable AvaloniaEdit in your application:
 1. Add **Avalonia.AvaloniaEdit** NuGet package
 1. Add **Consolonia.AvaloniaEdit** NuGet package
-1. Add ```avares://Consolonia.AvaloniaEdit/Theme.axaml``` to your application styles.
+1. Add `AvaloniaEditTheme` to your application styles, with `xmlns:console="https://github.com/jinek/consolonia"` declared on your application.
 
 ```xaml
     <Application.Styles>
         <console:ModernTheme />
-        <StyleInclude Source="avares://Consolonia.AvaloniaEdit/Theme.axaml" />
+        <console:AvaloniaEditTheme />
     </Application.Styles>
 
 ```
