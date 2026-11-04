@@ -46,7 +46,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
         protected static TextEditor Editor { get; private set; }
 
         [SetUp]
-        public async Task FindEditor()
+        public async Task FindAndSetupEditor()
         {
             await UITest.WaitRendered().ConfigureAwait(true);
             await Dispatcher.UIThread.InvokeAsync(() =>
@@ -54,11 +54,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
                 var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!;
                 Editor = lifetime.MainWindow!.GetVisualDescendants().OfType<TextEditor>().Single();
             });
-        }
 
-        [SetUp]
-        public async Task ResetEditor()
-        {
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 if (Editor.SearchPanel is { IsOpened: true } searchPanel)
@@ -72,6 +68,7 @@ namespace Consolonia.AvaloniaEdit.Tests.Base
             });
             await WaitRenderedAsync().ConfigureAwait(true);
         }
+
 
         /// <summary>
         ///     Waits for the rendering to settle. Revealing a search result schedules work on the dispatcher, so a
